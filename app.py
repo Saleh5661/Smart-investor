@@ -33,10 +33,11 @@
     # ثم شغّل هذا الملف (أو الصق محتواه) وسيعمل الخادم على المنفذ 5000
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import random
 import datetime
+import os
 
 # محاولة استيراد yfinance بشكل اختياري - النظام يعمل حتى بدونها
 try:
@@ -48,6 +49,16 @@ except ImportError:
 
 app = Flask(__name__)
 CORS(app)  # يسمح بالطلبات من الواجهة الأمامية (متصفح المستخدم عبر ngrok)
+
+
+# =================================================================
+# 0) تقديم الواجهة الأمامية (index.html) من نفس الخادم
+#    بهذا الشكل، نفق ngrok واحد يكفي لعرض الموقع والـ API معاً على
+#    نفس الرابط، بدل الحاجة لنفقين منفصلين.
+# =================================================================
+@app.route("/", methods=["GET"])
+def serve_frontend():
+    return send_from_directory(".", "index.html")
 
 
 # =================================================================
@@ -261,17 +272,8 @@ def health():
     }), 200
 
 
-@app.route("/", methods=["GET"])
-def index():
-    return jsonify({
-        "service": "المستثمر الذكي API",
-        "endpoints": {
-            "POST /predict": "توليد استراتيجية استثمار ومحفظة مقترحة",
-            "GET /health": "فحص حالة الخادم",
-        }
-    }), 200
-
-
 if __name__ == "__main__":
-    # ملاحظة: في Colab استخدم pyngrok لفتح المنفذ للعالم الخارجي (راجع التعليمات أعلى الملف)
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # يقرأ رقم المنفذ من متغير البيئة PORT (تحدده منصات الاستضافة تلقائياً
+    # مثل Render)، وإن لم يوجد يستخدم 5000 افتراضياً للتشغيل المحلي.
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
