@@ -3,5 +3,6 @@ services:
     name: smart-investor
     env: python
     plan: free
+    rootDir: .
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: python -m gunicorn app:app --bind 0.0.0.0:$PORT
