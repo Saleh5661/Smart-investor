@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المستثمر الذكي | استراتيجيات استثمار مبنية على الذكاء الاصطناعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0f1e;
+    --ink-2:#121a2e;
+    --ink-3:#1c2740;
+    --ink-line:#243252;
+    --paper:#f6f7fb;
+    --card:#ffffff;
+    --emerald:#10b981;
+    --emerald-deep:#047857;
+    --gold:#d4a72c;
+    --slate:#64748b;
+    --slate-light:#94a3b8;
+    --line:#e2e8f0;
+    --red:#ef4444;
+    --red-bg:#fef2f2;
+    --font-display:'Cairo', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    font-family:var(--font-display);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  .container{max-width:1200px; margin:0 auto; padding:0 24px;}
+
+  ::selection{background:rgba(16,185,129,0.25);}
+
+  /* ===================== NAV ===================== */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,15,30,0.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner{
+    max-width:1200px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:38px; height:38px; border-radius:9px;
+    background:linear-gradient(135deg, var(--emerald), var(--emerald-deep));
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; color:#fff; font-size:16px;
+    box-shadow:0 4px 14px rgba(16,185,129,0.35);
+  }
+  .brand-name{color:#fff; font-weight:800; font-size:16.5px;}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a{
+    color:#cbd5e1; font-size:14px; font-weight:600;
+    transition:color .2s;
+  }
+  .nav-links a:hover{color:#fff;}
+  .nav-cta{
+    background:var(--emerald);
+    color:#04140f !important;
+    padding:10px 20px;
+    border-radius:9px;
+    font-weight:800 !important;
+    font-size:13.5px !important;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .nav-cta:hover{ transform:translateY(-1px); box-shadow:0 8px 20px rgba(16,185,129,0.3); }
+  .nav-toggle{display:none;}
+  @media (max-width:820px){
+    .nav-links{position:fixed; inset:64px 0 auto 0; background:var(--ink); flex-direction:column; padding:20px 24px; gap:18px; border-bottom:1px solid var(--ink-line); transform:translateY(-130%); transition:transform .25s ease; }
+    .nav-links.open{transform:translateY(0);}
+    .nav-toggle{display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px;}
+    .nav-toggle span{width:22px; height:2px; background:#fff; border-radius:2px;}
+  }
+
+  /* ===================== HERO ===================== */
+  .hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(16,185,129,0.18), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 5% 110%, rgba(212,167,44,0.10), transparent 60%),
+      var(--ink);
+    color:#fff;
+    padding:88px 24px 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:1fr; gap:20px;
+    text-align:center;
+    padding-bottom:64px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    justify-self:center;
+    background:rgba(16,185,129,0.1);
+    border:1px solid rgba(16,185,129,0.3);
+    color:var(--emerald);
+    font-size:12.5px; font-weight:800;
+    padding:7px 16px; border-radius:999px;
+    margin:0 auto;
+  }
+  .eyebrow::before{
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:var(--emerald); box-shadow:0 0 0 3px rgba(16,185,129,0.25);
+  }
+  .hero h1{
+    font-size:clamp(32px, 5.5vw, 58px);
+    font-weight:900;
+    line-height:1.25;
+    max-width:820px;
+    margin:0 auto;
+  }
+  .hero h1 .accent{
+    color:var(--emerald);
+    position:relative;
+  }
+  .hero p.sub{
+    font-size:clamp(15px, 1.6vw, 18px);
+    color:#a8b3c7;
+    max-width:600px;
+    margin:0 auto;
+    font-weight:500;
+  }
+  .hero-ctas{
+    display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px;
+    border-radius:11px;
+    font-family:var(--font-display);
+    font-size:14.5px; font-weight:800;
+    cursor:pointer; border:none;
+    transition:transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--emerald), var(--emerald-deep));
+    color:#fff;
+    box-shadow:0 10px 26px rgba(16,185,129,0.32);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(16,185,129,0.42); }
+  .btn-ghost{
+    background:rgba(255,255,255,0.06);
+    border:1.5px solid rgba(255,255,255,0.16);
+    color:#fff;
+  }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.12); }
+
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:16px; max-width:680px; margin:12px auto 0;
+  }
+  .stat{
+    padding:16px 10px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .stat .num{
+    font-family:var(--font-mono);
+    font-size:24px; font-weight:700; color:var(--emerald);
+  }
+  .stat .lbl{ font-size:11.5px; color:#94a3b8; font-weight:600; margin-top:4px;}
+
+  /* ---- Ticker tape (signature element) ---- */
+  .ticker-tape{
+    border-top:1px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.03);
+    overflow:hidden;
+    padding:14px 0;
+    position:relative;
+  }
+  .ticker-track{
+    display:flex; gap:36px;
+    width:max-content;
+    animation:scrollTicker 32s linear infinite;
+    direction:ltr;
+  }
+  .ticker-tape:hover .ticker-track{ animation-play-state:paused; }
+  @keyframes scrollTicker{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .tick{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--font-mono);
+    font-size:13px; white-space:nowrap;
+    color:#cbd5e1;
+  }
+  .tick b{ color:#fff; font-weight:700; }
+  .tick .up{ color:var(--emerald); font-weight:700; }
+  .tick .down{ color:#f87171; font-weight:700; }
+
+  /* ===================== SECTION HEADERS ===================== */
+  .section{ padding:80px 24px; }
+  .section-head{ text-align:center; max-width:600px; margin:0 auto 48px; }
+  .section-tag{
+    display:inline-block; font-size:12px; font-weight:800;
+    color:var(--emerald-deep); background:rgba(16,185,129,0.1);
+    padding:5px 14px; border-radius:999px; margin-bottom:14px;
+  }
+  .section-head h2{
+    font-size:clamp(24px, 3vw, 34px); font-weight:800; color:var(--ink);
+  }
+  .section-head p{ color:var(--slate); margin-top:10px; font-size:14.5px; }
+
+  /* ===================== HOW IT WORKS ===================== */
+  .steps{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    max-width:1100px; margin:0 auto;
+  }
+  @media (max-width:800px){ .steps{grid-template-columns:1fr;} }
+  .step-card{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:28px 24px; position:relative;
+  }
+  .step-num{
+    font-family:var(--font-mono); font-size:13px; font-weight:700;
+    color:var(--emerald-deep); background:rgba(16,185,129,0.1);
+    width:34px; height:34px; border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .step-card h3{ font-size:16.5px; font-weight:800; margin-bottom:8px; }
+  .step-card p{ font-size:13.5px; color:var(--slate); }
+
+  /* ===================== FEATURES ===================== */
+  .features-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+    max-width:1150px; margin:0 auto;
+  }
+  @media (max-width:900px){ .features-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .features-grid{grid-template-columns:1fr;} }
+  .feature-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:22px; transition:transform .2s, box-shadow .2s;
+  }
+  .feature-card:hover{ transform:translateY(-3px); box-shadow:0 12px 28px rgba(15,23,42,0.08); }
+  .feature-card .ico{
+    width:40px; height:40px; border-radius:10px;
+    background:rgba(16,185,129,0.1); color:var(--emerald-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; margin-bottom:14px;
+  }
+  .feature-card h4{ font-size:14.5px; font-weight:800; margin-bottom:6px; }
+  .feature-card p{ font-size:12.5px; color:var(--slate); line-height:1.7; }
+
+  /* ===================== TOOL SECTION ===================== */
+  .tool-section{
+    background:var(--ink);
+    padding:80px 24px;
+    position:relative;
+  }
+  .tool-section .section-head h2{ color:#fff; }
+  .tool-section .section-head p{ color:#94a3b8; }
+  .tool-section .section-tag{
+    background:rgba(16,185,129,0.15); color:var(--emerald);
+  }
+
+  .dashboard{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:22px;
+    max-width:1150px;
+    margin:0 auto;
+    align-items:start;
+  }
+  @media (max-width:900px){ .dashboard{grid-template-columns:1fr;} }
+
+  .panel{
+    background:var(--card);
+    border-radius:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+    overflow:hidden;
+  }
+
+  .panel-header{
+    padding:20px 22px;
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:10px;
+  }
+  .panel-header .dot{ width:8px; height:8px; border-radius:2px; background:var(--emerald); }
+  .panel-header h3{ font-size:14.5px; font-weight:800; color:var(--ink); }
+  .panel-header p{ font-size:11.5px; color:var(--slate); margin-right:auto; font-family:var(--font-mono); }
+
+  .panel-body{ padding:22px; display:flex; flex-direction:column; gap:20px; }
+
+  .field label{ display:block; font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:8px; }
+
+  .amount-input{ position:relative; }
+  .amount-input input{
+    width:100%; padding:13px 16px; padding-left:56px;
+    border:1.5px solid var(--line); border-radius:10px;
+    font-family:var(--font-mono); font-size:16px; font-weight:700; color:var(--ink);
+    background:#f8fafc; transition:.2s;
+  }
+  .amount-input input:focus{
+    outline:none; border-color:var(--emerald); background:#fff;
+    box-shadow:0 0 0 4px rgba(16,185,129,0.12);
+  }
+  .amount-input .currency{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    font-family:var(--font-mono); font-size:11px; font-weight:800; color:var(--emerald-deep);
+    background:rgba(16,185,129,0.1); padding:4px 8px; border-radius:6px;
+  }
+  .field-error{ font-size:11.5px; color:var(--red); font-weight:700; margin-top:6px; display:none; }
+
+  .option-group{ display:grid; gap:9px; }
+  .option-group.cols-3{ grid-template-columns:repeat(3,1fr); }
+  .option-group.cols-2x2{ grid-template-columns:1fr 1fr; }
+
+  .opt-box{ position:relative; }
+  .opt-box input{ position:absolute; opacity:0; inset:0; cursor:pointer; margin:0; }
+  .opt-box .box-ui{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    padding:11px 6px; border:1.5px solid var(--line); border-radius:10px;
+    background:#f8fafc; text-align:center; transition:.15s; height:100%;
+  }
+  .opt-box .box-ui .ico{ font-size:15px; }
+  .opt-box .box-ui .lbl{ font-size:12px; font-weight:700; color:var(--slate); }
+  .opt-box input:checked + .box-ui{
+    border-color:var(--emerald); background:rgba(16,185,129,0.08);
+    box-shadow:0 0 0 3px rgba(16,185,129,0.1);
+  }
+  .opt-box input:checked + .box-ui .lbl{ color:var(--ink); }
+  .opt-box input:focus-visible + .box-ui{ outline:2px solid var(--emerald); outline-offset:2px; }
+
+  .endpoint-field input{
+    width:100%; padding:11px 14px; border:1.5px solid var(--line); border-radius:10px;
+    font-family:var(--font-mono); font-size:12px; color:var(--ink);
+    background:#f8fafc; direction:ltr; text-align:left;
+  }
+  .endpoint-field input:focus{ outline:none; border-color:var(--emerald); background:#fff; }
+  .endpoint-field .hint{ font-size:11px; color:var(--slate); font-weight:500; margin-top:6px; font-family:var(--font-mono); direction:ltr; text-align:left; }
+
+  .btn-analyze{
+    width:100%; padding:16px; border:none; border-radius:12px;
+    background:linear-gradient(135deg, var(--emerald), var(--emerald-deep));
+    color:#fff; font-family:var(--font-display); font-size:15px; font-weight:800;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;
+    box-shadow:0 8px 20px rgba(16,185,129,0.3); transition:transform .15s, box-shadow .15s;
+  }
+  .btn-analyze:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(16,185,129,0.4); }
+  .btn-analyze:disabled{ opacity:.75; cursor:not-allowed; transform:none; }
+
+  .spinner{
+    width:17px; height:17px; border:2.5px solid rgba(255,255,255,0.35);
+    border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:none;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .btn-analyze.loading .spinner{ display:inline-block; }
+  .btn-analyze.loading .btn-label{ display:none; }
+
+  /* ---- Results side ---- */
+  .results-empty{ padding:56px 28px; text-align:center; color:var(--slate); }
+  .results-empty .emoji-box{
+    width:60px; height:60px; margin:0 auto 16px; border-radius:16px;
+    background:#f1f5f9; display:flex; align-items:center; justify-content:center; font-size:26px;
+  }
+  .results-empty h4{ font-size:15px; color:var(--ink); font-weight:800; margin-bottom:6px; }
+  .results-empty p{ font-size:12.5px; max-width:300px; margin:0 auto; line-height:1.7; }
+
+  .strategy-box{
+    margin:22px; padding:19px; border-radius:14px;
+    background:linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02));
+    border:1px solid rgba(16,185,129,0.25); display:none;
+  }
+  .strategy-box .strategy-tag{
+    display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800;
+    color:var(--emerald-deep); background:rgba(16,185,129,0.12); padding:5px 10px;
+    border-radius:999px; margin-bottom:10px;
+  }
+  .strategy-box p{ font-size:14px; line-height:1.9; color:var(--ink); font-weight:600; }
+
+  .error-box{
+    margin:22px; padding:17px 19px; border-radius:14px; background:var(--red-bg);
+    border:1px solid #fecaca; color:var(--red); font-size:13px; font-weight:700; line-height:1.8;
+    display:none; align-items:flex-start; gap:10px;
+  }
+  .error-box .err-icon{ font-size:17px; flex-shrink:0; }
+
+  .summary-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:0 22px 22px; display:none; }
+  .summary-card{ padding:14px; border:1px solid var(--line); border-radius:12px; background:#f8fafc; }
+  .summary-card .s-label{ font-size:11px; color:var(--slate); font-weight:700; margin-bottom:5px; }
+  .summary-card .s-value{ font-size:17px; font-weight:800; color:var(--ink); font-family:var(--font-mono); }
+  .summary-card.accent .s-value{ color:var(--emerald-deep); }
+
+  .table-wrap{ padding:0 22px 22px; }
+  .table-title{ font-size:13px; font-weight:800; color:var(--ink); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  thead th{ text-align:right; padding:11px 13px; background:var(--ink); color:#fff; font-weight:700; font-size:11.5px; }
+  thead th:first-child{ border-radius:10px 0 0 0; }
+  thead th:last-child{ border-radius:0 10px 0 0; }
+  tbody td{ padding:12px 13px; border-bottom:1px solid var(--line); color:var(--ink); font-weight:600; }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:#f8fafc; }
+  tbody td .asset-name{ font-weight:800; color:var(--ink); }
+  .pct-bar-wrap{ display:flex; align-items:center; gap:8px; }
+  .pct-track{ flex:1; height:6px; background:var(--line); border-radius:99px; overflow:hidden; }
+  .pct-fill{ height:100%; background:linear-gradient(90deg, var(--emerald), var(--emerald-deep)); border-radius:99px; }
+  .amount-cell{ font-weight:800; color:var(--emerald-deep); direction:ltr; text-align:right; display:inline-block; font-family:var(--font-mono); }
+
+  .skeleton{ display:none; padding:22px; }
+  .skeleton-line{
+    height:13px; border-radius:6px;
+    background:linear-gradient(90deg, #eef1f5 25%, #e2e8f0 37%, #eef1f5 63%);
+    background-size:400% 100%; animation:shimmer 1.4s ease infinite; margin-bottom:11px;
+  }
+  @keyframes shimmer{ 0%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+  /* ===================== FOOTER ===================== */
+  footer{ background:var(--ink); border-top:1px solid var(--ink-line); padding:36px 24px; }
+  .footer-inner{
+    max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  footer .brand-name{ color:#fff; }
+  footer p.disclaimer{ color:#64748b; font-size:12px; max-width:520px; line-height:1.7; }
+
+  /* Fade-in on scroll */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">م</div>
+      <span class="brand-name">المستثمر الذكي</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#how">كيف يعمل</a>
+      <a href="#features">المميزات</a>
+      <a href="#tool" class="nav-cta">ابدأ التحليل</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">مبني على XGBoost وبيانات فنية لحظية</span>
+    <h1>قرارات استثمار <span class="accent">مبنية على بيانات</span>، لا على التخمين</h1>
+    <p class="sub">يحلل النموذج مؤشرات الزخم والسيولة لأكثر من 250 شركة أمريكية، ويقترح توزيع محفظة يناسب رأس مالك ومستوى تحملك للمخاطرة — خلال ثوانٍ.</p>
+    <div class="hero-ctas">
+      <a href="#tool" class="btn btn-primary">🔍 جرّب الأداة الآن</a>
+      <a href="#how" class="btn btn-ghost">كيف يعمل النموذج؟</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">250+</div><div class="lbl">سهم مغطى بالنموذج</div></div>
+      <div class="stat"><div class="num">5 أيام</div><div class="lbl">أفق التوقع الزمني</div></div>
+      <div class="stat"><div class="num">GPU</div><div class="lbl">تدريب مُسرّع بالمعالج الرسومي</div></div>
+    </div>
+  </div>
+
+  <div class="ticker-tape">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="section" id="how">
+  <div class="section-head reveal">
+    <span class="section-tag">طريقة العمل</span>
+    <h2>ثلاث خطوات فقط للحصول على استراتيجيتك</h2>
+    <p>من إدخال بياناتك إلى محفظة جاهزة — بدون تعقيد.</p>
+  </div>
+  <div class="steps">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <h3>أدخل بياناتك</h3>
+      <p>حدّد رأس المال، مستوى المخاطرة الذي تتحمله، والقطاع الذي يهمك — تقنية، بنوك، طاقة، أو الكل.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <h3>يحلل النموذج البيانات</h3>
+      <p>خوارزمية XGBoost مدرّبة على مؤشرات فنية (RSI، MFI، التذبذب) ترتّب الأسهم حسب الزخم الحالي.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <h3>احصل على توزيع مقترح</h3>
+      <p>محفظة مقسّمة بنسب واضحة ومبلغ مخصص لكل أصل، مع شرح مبسّط لمنطق الاختيار.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURES ===================== -->
+<section class="section" id="features" style="background:#fff;">
+  <div class="section-head reveal">
+    <span class="section-tag">المميزات</span>
+    <h2>لماذا المستثمر الذكي؟</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="ico">⚡</div>
+      <h4>تحليل فوري</h4>
+      <p>نتيجة كاملة خلال ثوانٍ معدودة، بدون انتظار أو تعقيد.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="ico">🎯</div>
+      <h4>مبني على مؤشرات فنية</h4>
+      <p>RSI وMFI والتذبذب — نفس الأدوات التي يستخدمها المحللون.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="ico">🧩</div>
+      <h4>مرونة في القطاعات</h4>
+      <p>ركّز على التقنية، البنوك، الطاقة، أو نوّع عبر كل القطاعات.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="ico">🛡️</div>
+      <h4>وعي بالمخاطرة</h4>
+      <p>توزيع الأصول يتغيّر فعلياً حسب مستوى المخاطرة الذي تختاره.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TOOL SECTION ===================== -->
+<section class="tool-section" id="tool">
+  <div class="section-head reveal">
+    <span class="section-tag">الأداة</span>
+    <h2>ابدأ التحليل الآن</h2>
+    <p>أدخل بياناتك في اللوحة اليمنى، واحصل على استراتيجية استثمار كاملة.</p>
+  </div>
+
+  <div class="dashboard reveal">
+
+    <!-- الإعدادات -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        <h3>إعدادات التحليل</h3>
+        <p>STEP 1/1</p>
+      </div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label for="amount">إجمالي رأس المال</label>
+          <div class="amount-input">
+            <span class="currency">SAR</span>
+            <input type="number" id="amount" placeholder="مثال: 50000" min="0" step="100">
+          </div>
+          <div class="field-error" id="amountError">الرجاء إدخال مبلغ أكبر من صفر</div>
+        </div>
+
+        <div class="field">
+          <label>مستوى المخاطرة</label>
+          <div class="option-group cols-3">
+            <label class="opt-box">
+              <input type="radio" name="risk" value="low">
+              <span class="box-ui"><span class="ico">🟢</span><span class="lbl">منخفضة</span></span>
+            </label>
+            <label class="opt-box">
+              <input type="radio" name="risk" value="medium" checked>
+              <span class="box-ui"><span class="ico">🟡</span><span class="lbl">متوسطة</span></span>
+            </label>
+            <label class="opt-box">
+              <input type="radio" name="risk" value="high">
+              <span class="box-ui"><span class="ico">🔴</span><span class="lbl">عالية</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>القطاع</label>
+          <div class="option-group cols-2x2">
+            <label class="opt-box">
+              <input type="radio" name="sector" value="all" checked>
+              <span class="box-ui"><span class="ico">🌐</span><span class="lbl">كل القطاعات</span></span>
+            </label>
+            <label class="opt-box">
+              <input type="radio" name="sector" value="energy">
+              <span class="box-ui"><span class="ico">⚡</span><span class="lbl">طاقة</span></span>
+            </label>
+            <label class="opt-box">
+              <input type="radio" name="sector" value="banks">
+              <span class="box-ui"><span class="ico">🏦</span><span class="lbl">بنوك</span></span>
+            </label>
+            <label class="opt-box">
+              <input type="radio" name="sector" value="tech">
+              <span class="box-ui"><span class="ico">💻</span><span class="lbl">تقنية</span></span>
+            </label>
+          </div>
+        </div>
+
+        <button class="btn-analyze" id="analyzeBtn" onclick="calculate()">
+          <span class="spinner"></span>
+          <span class="btn-label">🔍 بدء التحليل</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- النتائج -->
+    <div class="panel" id="resultsPanel">
+      <div class="panel-header">
+        <span class="dot"></span>
+        <h3>نتائج التحليل</h3>
+        <p id="resultTimestamp"></p>
+      </div>
+
+      <div class="results-empty" id="emptyState">
+        <div class="emoji-box">📊</div>
+        <h4>لا توجد نتائج بعد</h4>
+        <p>أدخل بياناتك في اللوحة اليمنى واضغط "بدء التحليل" لعرض استراتيجية الاستثمار المقترحة.</p>
+      </div>
+
+      <div class="skeleton" id="skeletonState">
+        <div class="skeleton-line" style="width:60%"></div>
+        <div class="skeleton-line" style="width:90%"></div>
+        <div class="skeleton-line" style="width:80%"></div>
+        <div class="skeleton-line" style="width:40%"></div>
+      </div>
+
+      <div class="error-box" id="errorBox">
+        <span class="err-icon">⚠️</span>
+        <span id="errorText"></span>
+      </div>
+
+      <div class="strategy-box" id="strategyBox">
+        <span class="strategy-tag">💡 الاستراتيجية المقترحة</span>
+        <p id="strategyText"></p>
+      </div>
+
+      <div class="summary-cards" id="summaryCards">
+        <div class="summary-card">
+          <div class="s-label">رأس المال</div>
+          <div class="s-value" id="sumCapital">-</div>
+        </div>
+        <div class="summary-card">
+          <div class="s-label">عدد الأصول</div>
+          <div class="s-value" id="sumAssets">-</div>
+        </div>
+        <div class="summary-card accent">
+          <div class="s-label">مستوى المخاطرة</div>
+          <div class="s-value" id="sumRisk">-</div>
+        </div>
+      </div>
+
+      <div class="table-wrap" id="tableWrap" style="display:none;">
+        <div class="table-title">📈 توزيع المحفظة الاستثمارية</div>
+        <table>
+          <thead><tr><th>اسم الأصل</th><th>النسبة المئوية</th><th>المبلغ المخصص</th></tr></thead>
+          <tbody id="portfolioBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="brand">
+      <div class="brand-mark">م</div>
+      <span class="brand-name">المستثمر الذكي</span>
+    </div>
+    <p class="disclaimer">هذا التحليل ناتج عن نموذج تعلّم آلي لأغراض توضيحية وتعليمية، وليس نصيحة مالية معتمدة. استشر مستشاراً مالياً مرخصاً قبل اتخاذ أي قرار استثماري.</p>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   رابط الخادم (API Base URL) — عدّل هذا السطر فقط بعد تشغيل app.py
+   مثال Colab + ngrok:  'https://xxxx-xx-xx-xx-xx.ngrok-free.app'
+   مثال تشغيل محلي:      'http://localhost:5000'
+   ===================================================================== */
+const API_BASE_URL = 'http://localhost:5000';
+
+/* ===================== شريط الأسهم المتحرك (Ticker Tape) ===================== */
+const TICKER_SYMBOLS = ["AAPL","MSFT","NVDA","GOOGL","JPM","XOM","V","TSLA","META","CVX","BAC","AMD"];
+function buildTicker(){
+  const track = document.getElementById('tickerTrack');
+  let html = '';
+  for(let rep = 0; rep < 2; rep++){
+    TICKER_SYMBOLS.forEach(sym => {
+      const delta = (Math.random() * 6 - 2.5).toFixed(2);
+      const isUp = delta >= 0;
+      html += `<div class="tick"><b>${sym}</b><span class="${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${Math.abs(delta)}%</span></div>`;
+    });
+  }
+  track.innerHTML = html;
+}
+buildTicker();
+
+/* ===================== قائمة الجوال ===================== */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* ===================== ظهور تدريجي عند التمرير ===================== */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+/* ===================== منطق الأداة (نفس المنطق السابق) ===================== */
+function fmtSAR(n){
+  return new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 0 }).format(n) + ' ر.س';
+}
+function riskLabel(v){
+  return { low: 'منخفضة', medium: 'متوسطة', high: 'عالية' }[v] || v;
+}
+
+function setState({ empty=false, loading=false, error=null, success=null }){
+  document.getElementById('emptyState').style.display = empty ? 'block' : 'none';
+  document.getElementById('skeletonState').style.display = loading ? 'block' : 'none';
+
+  const errBox = document.getElementById('errorBox');
+  if(error){
+    errBox.style.display = 'flex';
+    document.getElementById('errorText').textContent = error;
+  } else {
+    errBox.style.display = 'none';
+  }
+
+  const strategyBox = document.getElementById('strategyBox');
+  const summaryCards = document.getElementById('summaryCards');
+  const tableWrap = document.getElementById('tableWrap');
+
+  if(success){
+    strategyBox.style.display = 'block';
+    summaryCards.style.display = 'grid';
+    tableWrap.style.display = 'block';
+  } else {
+    strategyBox.style.display = 'none';
+    summaryCards.style.display = 'none';
+    tableWrap.style.display = 'none';
+  }
+}
+
+async function calculate(){
+  const btn = document.getElementById('analyzeBtn');
+  const amountInput = document.getElementById('amount');
+  const amountError = document.getElementById('amountError');
+
+  const amount = parseFloat(amountInput.value);
+  const risk = document.querySelector('input[name="risk"]:checked').value;
+  const sector = document.querySelector('input[name="sector"]:checked').value;
+  const apiBase = API_BASE_URL.trim().replace(/\/+$/, '');
+
+  if(!amount || isNaN(amount) || amount <= 0){
+    amountError.style.display = 'block';
+    amountInput.focus();
+    return;
+  }
+  amountError.style.display = 'none';
+
+  if(!apiBase){
+    setState({ error: 'رابط الخادم (API_BASE_URL) غير مُعرَّف في الكود.' });
+    return;
+  }
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+  setState({ loading: true });
+  document.getElementById('resultTimestamp').textContent = '';
+
+  try{
+    const response = await fetch(`${apiBase}/predict`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify({ amount, risk, sector })
+    });
+
+    if(!response.ok){
+      const errData = await response.json().catch(() => null);
+      throw new Error(errData?.error || `فشل الاتصال بالخادم (رمز الحالة: ${response.status})`);
+    }
+
+    const data = await response.json();
+
+    if(!data || !data.strategy || !Array.isArray(data.portfolio)){
+      throw new Error('استجابة الخادم غير صالحة أو ناقصة البيانات المطلوبة.');
+    }
+
+    document.getElementById('strategyText').textContent = data.strategy;
+    document.getElementById('sumCapital').textContent = fmtSAR(amount);
+    document.getElementById('sumAssets').textContent = data.portfolio.length;
+    document.getElementById('sumRisk').textContent = riskLabel(risk);
+
+    const tbody = document.getElementById('portfolioBody');
+    tbody.innerHTML = '';
+    data.portfolio.forEach(item => {
+      const pct = Number(item.percentage) || 0;
+      const allocatedAmount = (pct / 100) * amount;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><span class="asset-name">${item.name ?? '-'}</span></td>
+        <td>
+          <div class="pct-bar-wrap">
+            <span>${pct}%</span>
+            <div class="pct-track"><div class="pct-fill" style="width:${Math.min(pct,100)}%"></div></div>
+          </div>
+        </td>
+        <td><span class="amount-cell">${fmtSAR(allocatedAmount)}</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('resultTimestamp').textContent =
+      'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
+
+    setState({ success: true });
+
+  } catch(err){
+    console.error('خطأ في التحليل:', err);
+    setState({ error: err.message || 'حدث خطأ غير متوقع أثناء الاتصال بالخادم. تأكد من صحة الرابط وحاول مجدداً.' });
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>
